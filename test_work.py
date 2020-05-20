@@ -1,7 +1,7 @@
 import random
 
 class Placement_option():
-    '''класс возможных вариантов размещения'''
+    '''Класс возможных вариантов размещения'''
 
     def __init__(self, res_date, sur_name, name, mid_name, num_pers, arr_date, num_days, sum_max):
         self.res_date = res_date
