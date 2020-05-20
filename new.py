@@ -91,6 +91,8 @@ class Placement_option():
             print(tek_price)
             print('')
 
+
+
         for num in numbers:
             lst = dict.values()
             print(lst)
