@@ -104,9 +104,23 @@ class Placement_option():
 
                     probability = ['да', 'да', 'да', 'нет']
                     answer = random.choice(probability)
+
+                    if answer == 'да':
+
+                        for num in numbers:
+                            for k, v in num.items():
+                                space = name.find(' ')
+                                type = name[:space]
+                                comfort = name[space + 1:]
+                                if type in v and comfort in v and tek_price <= price:
+                                    for numm in range(int(num_days) - 1):
+                                        date = str(int(arr_date[:2]) + numm) + arr_date[2:]
+                                        dates.append(date)
+
         self.stroka = 'Ответ на предложение: ' + answer + ';' + ' ' + 'Номер: ' + name + ';' + ' ' + \
                   'Тип питания: ' + food + ';' + ' ' + 'Цена на одного: ' + \
                      str(tek_price) + ', за всех ' + str(tek_tek_price) + '.'
+
 
     def __str__(self):
         return self.stroka
