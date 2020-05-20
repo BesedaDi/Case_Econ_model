@@ -2,9 +2,7 @@ import random
 numbers = []
 individual_number = []
 dict = {}
-booked_numbers = []
-door = {}
-
+a = []
 with open('found.txt', 'r', encoding="utf-8") as found:
         for line in found:
             number, type, people_number, comfort = map(str, line.split())
@@ -34,7 +32,7 @@ with open('found.txt', 'r', encoding="utf-8") as found:
             individual_number = []
             dict = {}
 
-
+        print(numbers)
         booking = open('booking.txt', 'r', encoding="utf-8")
 
 
@@ -52,8 +50,6 @@ with open('found.txt', 'r', encoding="utf-8") as found:
                     people_number = v[1]
                     comfort = v[2]
                     price = v[3]
-
-
 
                     if int(people_number) == int(num_pers) and price <= int(sum_max) and 2300 < int(sum_max):
 
@@ -74,18 +70,6 @@ with open('found.txt', 'r', encoding="utf-8") as found:
                                 food = 'без питания'
                         probability = ['да', 'да', 'да', 'нет']
                         answer = random.choice(probability)
-                        dates = []
-                        if answer == 'да':
-
-                            for num in numbers:
-                                for k, v in num.items():
-                                    space = name.find(' ')
-                                    type = name[:space]
-                                    comfort = name[space + 1:]
-                                    if type in v and comfort in v and tek_price <= price:
-                                        for numm in range(int(num_days) - 1):
-                                            date = str(int(arr_date[:2]) + numm) + arr_date[2:]
-                                            dates.append(date)
 
                     elif int(people_number) > int(num_pers) and price <= int(sum_max) and 2300 < int(sum_max):
                         if tek_price < price:
@@ -105,17 +89,6 @@ with open('found.txt', 'r', encoding="utf-8") as found:
 
                         probability = ['да', 'да', 'да', 'нет']
                         answer = random.choice(probability)
-                    if answer == 'да':
-
-                        for num in numbers:
-                            for k, v in num.items():
-                                space = name.find(' ')
-                                type = name[:space]
-                                comfort = name[space + 1:]
-                                if type in v and comfort in v and tek_price <= price:
-                                    for numm in range(int(num_days) - 1):
-                                        date = str(int(arr_date[:2]) + numm) + arr_date[2:]
-                                        dates.append(date)
 
             print(answer)
 
@@ -129,6 +102,4 @@ with open('found.txt', 'r', encoding="utf-8") as found:
                   'Тип питания: ' + food + ';' + ' ' + 'Цена на одного: ' + \
                      str(tek_price) + ', за всех ' + str(tek_tek_price)
             print(stroka)
-            print('')
-            print(dates)
             print('')

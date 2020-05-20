@@ -52,73 +52,59 @@ class Placement_option():
 
         # в словаре в значениях смотрим по цене и количеству человек, добавляем импорт рандом
 
-    def client(self, nums, numbers):
+    def client(self, numbers):
         global answer, food
-        booking = open('booking.txt', 'r', encoding="utf-8")
+        tek_price = 0
 
-        for i in booking:
-            res_date, sur_name, name, mid_name, num_pers, arr_date, num_days, sum_max = map(str, i.split(
-                ' '))
-            tek_price = 0
+        for num in numbers:
 
-            for num in numbers:
+            for k, v in num.items():
+                type = v[0]
+                people_number = v[1]
+                comfort = v[2]
+                price = v[3]
 
-                for k, v in num.items():
-                    type = v[0]
-                    people_number = v[1]
-                    comfort = v[2]
-                    price = v[3]
+                if int(people_number) == int(self.num_pers) and price <= int(self.sum_max):
+                    if tek_price < price:
+                        tek_price = price
+                        name = type + ' ' + comfort
+                        if tek_price + 1000 <= int(self.sum_max):
+                            tek_price = tek_price + 1000
+                            tek_tek_price = tek_price * int(self.num_pers)
+                            food = 'полупонсион'
+                        elif tek_price + 280 <= int(self.sum_max):
+                            tek_price = tek_price + 280
+                            tek_tek_price = tek_price * int(self.num_pers)
+                            food = 'завтрак'
+                        else:
+                            tek_price = tek_price
+                            tek_tek_price = tek_price * int(self.num_pers)
+                            food = 'без питания'
+                    probability = ['да', 'да', 'да', 'нет']
+                    answer = random.choice(probability)
+                elif int(people_number) < int(self.num_pers) and price <= int(self.sum_max):
+                    if tek_price < price:
+                        tek_price = (price * 70 / 100)
+                        name = type + ' ' + comfort
+                        if tek_price + 1000 <= int(self.sum_max):
+                            tek_price = tek_price + 1000
+                            tek_tek_price = tek_price * int(self.num_pers)
+                            food = 'полупонсион'
+                        elif tek_price + 280 <= int(self.sum_max):
+                            tek_price = tek_price + 280
+                            tek_tek_price = tek_price * int(self.num_pers)
+                            food = 'завтрак'
+                        else:
+                            tek_price = tek_price
+                            food = 'без питания'
 
-                    if int(people_number) == int(num_pers) and price <= int(sum_max):
-                        if tek_price < price:
-                            tek_price = price
-                            name = type + ' ' + comfort
-                            if tek_price + 1000 <= int(sum_max):
-                                tek_price = tek_price + 1000
-                                tek_tek_price = tek_price * int(num_pers)
-                                food = 'полупонсион'
-                            elif tek_price + 280 <= int(sum_max):
-                                tek_price = tek_price + 280
-                                tek_tek_price = tek_price * int(num_pers)
-                                food = 'завтрак'
-                            else:
-                                tek_price = tek_price
-                                tek_tek_price = tek_price * int(num_pers)
-                                food = 'без питания'
-                        probability = ['да', 'да', 'да', 'нет']
-                        answer = random.choice(probability)
-                    elif int(people_number) < int(num_pers) and price <= int(sum_max):
-                        if tek_price < price:
-                            tek_price = (price * 70 / 100)
-                            name = type + ' ' + comfort
-                            if tek_price + 1000 <= int(sum_max):
-                                tek_price = tek_price + 1000
-                                tek_tek_price = tek_price * int(num_pers)
-                                food = 'полупонсион'
-                            elif tek_price + 280 <= int(sum_max):
-                                tek_price = tek_price + 280
-                                tek_tek_price = tek_price * int(num_pers)
-                                food = 'завтрак'
-                            else:
-                                tek_price = tek_price
-                                food = 'без питания'
-
-                        probability = ['да', 'да', 'да', 'нет']
-                        answer = random.choice(probability)
-            self.stroka = 'Ответ на предложение: ' + answer + ';' + ' ' + 'Номер: ' + 'name' + ';' + \
-                     ' ' + 'Тип питания: ' + food + ';' + ' ' + 'Цена: ' + tek_price + '.'
-
+                    probability = ['да', 'да', 'да', 'нет']
+                    answer = random.choice(probability)
+        self.stroka = 'Ответ на предложение: ' + answer + ';' + ' ' + 'Номер: ' + 'name' + ';' + \
+                      ' ' + 'Тип питания: ' + food + ';' + ' ' + 'Цена: ' + tek_price + '.'
 
     def __str__(self):
-        return str(self.stroka)
-
-
-
-
-
-
-
-
+        return self.stroka
 
 
     # если согласен, то берем номер номера, создаем новый словарь, добавляем туда даты по количеству дней
