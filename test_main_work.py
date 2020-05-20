@@ -1,4 +1,4 @@
-from work3 import Placement_option
+from my_variant import Placement_option
 
 infile = open('booking.txt', 'r', encoding="utf-8")
 file_contents = infile.readline()

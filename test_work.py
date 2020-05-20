@@ -1,11 +1,12 @@
 import random
 
-class Placement_option():
-    '''класс возможных вариантов размещения'''
 
-    def __init__(self, res_date, sur_name, name, mid_name, num_pers, arr_date, num_days, sum_max):
-        self.res_date = res_date
-        self.sur_name = sur_name
+class Placement_option():
+    '''Класс возможных вариантов размещения'''
+
+    def __init__(self, reservation_date, surname, name, mid_name, num_pers, arr_date, num_days, sum_max):
+        self.reservation_date = reservation_date
+        self.surname = surname
         self.name = name
         self.mid_name = mid_name
         self.num_pers = num_pers
@@ -13,179 +14,79 @@ class Placement_option():
         self.num_days = num_days
         self.sum_max = sum_max
 
-
-    def plac_op(self):
-        room_rates = []
-        new_room_rates = []
-        new_new_room_rates = []
-        room = []
+    def nums(self):  # Хранение данных о каждом номере (с ценой проживания, но без учета питания)
+        numbers = []
+        individual_number = []
 
         with open('found.txt', 'r', encoding="utf-8") as found:
             for line in found:
-                number, place, person, level = map(str, line.split())
+                number, type, people_number, comfort = map(str, line.split())
                 number = int(number)
-                person = int(person)
-                if place == 'одноместный':
-                    rate = 2900
-                    if level == 'стандарт':
-                        rate = int(rate * 1)
-                        room_rates.append(rate)
-                        m1 = 'одноместный стандарт'
-                        n1 = rate
+                people_number = int(people_number)
+                if type == 'одноместный':
+                    price = 2900.00
+                elif type == 'двухместный':
+                    price = 2300.00
+                elif type == 'люкс':
+                    price = 4100.00
+                elif type == 'полулюкс':
+                    price = 3200.00
 
-                    elif level == 'стандарт_улучшенный':
-                        rate = int(rate * 1.2)
-                        room_rates.append(rate)
-                        m2 = 'одноместный стандарт_улучшенный'
-                        n2 = rate
+                if comfort == 'стандарт':
+                    price = price * 1
+                elif comfort == 'стандарт_улучшенный':
+                    price = price * 1.2
+                elif comfort == 'апартамент':
+                    price = price * 1.5
 
-                    elif level == 'апартамент':
-                        rate = int(rate * 1.5)
-                        room_rates.append(rate)
-                        m3 = 'одноместный апартамент'
-                        n3 = rate
-                elif place == 'двухместный':
-                    rate = 2300
-                    if level == 'стандарт':
-                        rate = int(rate * 1)
-                        room_rates.append(rate)
-                        m = 'двухместный стандарт'
-                        n = rate
-                    elif level == 'стандарт_улучшенный':
-                        rate = int(rate * 1.2)
-                        room_rates.append(rate)
-                        m = 'двухместный стандарт_улучшенный'
-                        n = rate
-                    elif level == 'апартамент':
-                        rate = int(rate * 1.5)
-                        room_rates.append(rate)
-                        m = 'двухместный апартамент'
-                        n = rate
-                elif place == 'полулюкс':
-                    rate = 3200
-                    if level == 'стандарт':
-                        rate = int(rate * 1)
-                        room_rates.append(rate)
-                        m = 'полулюкс стандарт'
-                        n = rate
-                    elif level == 'стандарт_улучшенный':
-                        rate = int(rate * 1.2)
-                        room_rates.append(rate)
-                        m = 'полулюкс стандарт_улучшенный'
-                        n = rate
-                    elif level == 'апартамент':
-                        rate = int(rate * 1.5)
-                        room_rates.append(rate)
-                        m = 'полулюкс апартамент'
-                        n = rate
-                elif place == 'люкс':
-                    rate = 4100
-                    if level == 'стандарт':
-                        rate = int(rate * 1)
-                        room_rates.append(rate)
-                        m = 'люкс стандарт'
-                        n = rate
-                    elif level == 'стандарт_улучшенный':
-                        rate = int(rate * 1.2)
-                        room_rates.append(rate)
-                        m = 'люкс стандарт_улучшенный'
-                        n = rate
-                    elif level == 'апартамент':
-                        rate = int(rate * 1.5)
-                        room_rates.append(rate)
-                        m = 'люкс апартамент'
-                        n = rate
+                individual_number.append(type)
+                individual_number.append(people_number)
+                individual_number.append(comfort)
+                individual_number.append(price)
+                dict[number] = individual_number
+                numbers.append(dict)
+                individual_number = []
+                dict = {}
+            print(numbers)
 
-                if len(room_rates) == 0:
-                    if int(self.num_pers) < person:
-                        if place == 'двухместный':
-                            rate = 2300
-                            if level == 'стандарт':
-                                rate = (rate * 1) * 70 / 100
-                                room_rates.append(rate)
-                                m = 'двухместный стандарт'
-                                n = rate
-                            elif level == 'стандарт_улучшенный':
-                                rate = (rate * 1.2) * 70 / 100
-                                room_rates.append(rate)
-                                m = 'двухместный стандарт_улучшенный'
-                                n = rate
-                            elif level == 'апартамент':
-                                rate = (rate * 1.5) * 70 / 100
-                                room_rates.append(rate)
-                                m = 'двухместный апартамент'
-                                n = rate
-                        if len(room_rates) == 0:
-                            if place == 'полулюкс':
-                                rate = 3200
-                                if level == 'стандарт':
-                                    rate = (rate * 1) * 70 / 100
-                                    room_rates.append(rate)
-                                    m = 'полулюкс стандарт'
-                                    n = rate
-                                elif level == 'стандарт_улучшенный':
-                                    rate = (rate * 1.2) * 70 / 100
-                                    room_rates.append(rate)
-                                    m = 'полулюкс стандарт_улучшенный'
-                                    n = rate
-                                elif level == 'апартамент':
-                                    rate = (rate * 1.5) * 70 / 100
-                                    room_rates.append(rate)
-                                    m = 'полулюкс апартамент'
-                                    n = rate
-                        if len(room_rates) == 0:
-                            if place == 'люкс':
-                                rate = 4100
-                                if level == 'стандарт':
-                                    rate = (rate * 1) * 70 / 100
-                                    room_rates.append(rate)
-                                    a = 19
-                                    room_rates.append(a)
-                                    m = 'люкс стандарт'
-                                    n = rate
-                                elif level == 'стандарт_улучшенный':
-                                    rate = (rate * 1.2) * 70 / 100
-                                    room_rates.append(rate)
-                                    a = 20
-                                    room_rates.append(a)
-                                    m = 'люкс стандарт_улучшенный'
-                                    n = rate
-                                elif level == 'апартамент':
-                                    rate = (rate * 1.5) * 70 / 100
-                                    room_rates.append(rate)
-                                    a = 21
-                                    room_rates.append(a)
-                                    m = 'люкс апартамент'
-                                    n = rate
-            print(room_rates)
-            # теперь писать на втором уровне
-            for price in room_rates:
-                if price <= int(self.sum_max):
-                    new_room_rates.append(price)
-            new_room_rates = sorted(new_room_rates, reverse=True)
-            print(new_room_rates)
+        # в словаре в значениях смотрим по цене и количеству человек, добавляем импорт рандом
 
-            for i in new_room_rates:
-                el1 = i + 1000
-                el2 = i + 280
-                el3 = i
-                if el1 > el2 and el1 <= int(self.sum_max):
-                    total_price = el1
-                new_new_room_rates.append(el1)
-                new_new_room_rates.append(el2)
-                new_new_room_rates.append(el3)
-            print(new_new_room_rates)
-            for price in new_new_room_rates:
-                if price <= int(self.sum_max):
-                    room.append(price)
-            total_price = str(max(room))
-            print(total_price)
+    def client(self, nums, numbers):
+        busy_numbers = []
+        booking = open('booking.txt', 'r', encoding="utf-8")
+        for i in booking:
+            res_date, sur_name, name, mid_name, num_pers, arr_date, num_days, sum_max = map(str, i.split(
+                ' '))
+            print(res_date, sur_name, name, mid_name, num_pers, arr_date, num_days, sum_max)
+            tek_price = 0
+            for num in numbers:
+                for k, v in num.items():
+                    type = v[0]
+                    people_number = v[1]
+                    comfort = v[2]
+                    price = v[3]
+                    if int(people_number) == int(self.num_pers) and price <= int(self.sum_max):
+                        if tek_price < price:
+                            tek_price = price
+                        if tek_price + 1000 <= int(self.sum_max):
+                            tek_price = tek_price + 1000
+                        elif tek_price + 280 <= int(self.sum_max):
+                            tek_price = tek_price + 280
+                            probability = ['да', 'да', 'да', 'нет']
+                            answer = random.choice(probability)
+                    elif int(people_number) < int(self.num_pers) and price <= int(self.sum_max):
+                        if tek_price < price:
+                            tek_price = price * 70 / 100
+                        if tek_price + 1000 <= int(self.sum_max):
+                            tek_price = tek_price + 1000
+                        elif tek_price + 280 <= int(self.sum_max):
+                            tek_price = tek_price + 280
+                            probability = ['да', 'да', 'да', 'нет']
+                            answer = random.choice(probability)
+            print(tek_price)
+            print(answer)
+            print('')
 
-            probability = ['да', 'да', 'да', 'нет']
-            answer = random.choice(probability)
-
-
-    def __str__(self):
-        return self.plac_op()
-
-
+        for num in numbers:
+            lst = dict.values()
+            print(lst)
