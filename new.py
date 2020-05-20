@@ -69,33 +69,47 @@ class Placement_option():
                     comfort = v[2]
                     price = v[3]
 
-                    if int(people_number) == int(self.num_pers) and price <= int(self.sum_max):
+                    if int(people_number) == int(num_pers) and price <= int(sum_max):
                         if tek_price < price:
                             tek_price = price
-                        if tek_price + 1000 <= int(self.sum_max):
+                            name = type + ' ' + comfort
+
+                        if tek_price + 1000 <= int(sum_max):
                             tek_price = tek_price + 1000
-                        elif tek_price + 280 <= int(self.sum_max):
+                            food = 'полупонсион'
+
+                        elif tek_price + 280 <= int(sum_max):
                             tek_price = tek_price + 280
-                            probability = ['да', 'да', 'да', 'нет']
-                            answer = random.choice(probability)
-                    elif int(people_number) < int(self.num_pers) and price <= int(self.sum_max):
+                            food = 'завтрак'
+
+                        else:
+                            tek_price = tek_price
+                            food = 'без питания'
+
+                        probability = ['да', 'да', 'да', 'нет']
+                        answer = random.choice(probability)
+                    elif int(people_number) < int(num_pers) and price <= int(sum_max):
                         if tek_price < price:
                             tek_price = price * 70 / 100
-                        if tek_price + 1000 <= int(self.sum_max):
+                            name = type + ' ' + comfort
+                            print(name)
+                        if tek_price + 1000 <= int(sum_max):
                             tek_price = tek_price + 1000
-                        elif tek_price + 280 <= int(self.sum_max):
+                            food = 'полупонсион'
+                        elif tek_price + 280 <= int(sum_max):
                             tek_price = tek_price + 280
-                            probability = ['да', 'да', 'да', 'нет']
-                            answer = random.choice(probability)
+                            food = 'завтрак'
+                        else:
+                            tek_price = tek_price
+                            food = 'без питания'
+                        probability = ['да', 'да', 'да', 'нет']
+                        answer = random.choice(probability)
+            print(answer)
 
+            print(name)
+            print(food)
             print(tek_price)
             print('')
-
-
-
-        for num in numbers:
-            lst = dict.values()
-            print(lst)
 
 
 
