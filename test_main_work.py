@@ -1,6 +1,6 @@
-from my_variant import Placement_option
+from test_work import Placement_option
 
-infile = open('booking.txt', 'r', encoding="utf-8")
+infile = open('booking.txt', 'r', encoding="utf-8") # здесь можно попробовать через for сделать
 file_contents = infile.readline()
 res_date, sur_name, name, mid_name, num_pers, arr_date, num_days, sum_max = map(str, file_contents.split(' '))
 num_pers = int(num_pers)

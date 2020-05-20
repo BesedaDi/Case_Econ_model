@@ -1,6 +1,5 @@
 import random
 
-
 class Placement_option():
     '''Класс возможных вариантов размещения'''
 
@@ -49,22 +48,27 @@ class Placement_option():
                 dict = {}
             print(numbers)
 
+
         # в словаре в значениях смотрим по цене и количеству человек, добавляем импорт рандом
 
     def client(self, nums, numbers):
         busy_numbers = []
         booking = open('booking.txt', 'r', encoding="utf-8")
+
         for i in booking:
             res_date, sur_name, name, mid_name, num_pers, arr_date, num_days, sum_max = map(str, i.split(
                 ' '))
             print(res_date, sur_name, name, mid_name, num_pers, arr_date, num_days, sum_max)
             tek_price = 0
+
             for num in numbers:
+
                 for k, v in num.items():
                     type = v[0]
                     people_number = v[1]
                     comfort = v[2]
                     price = v[3]
+
                     if int(people_number) == int(self.num_pers) and price <= int(self.sum_max):
                         if tek_price < price:
                             tek_price = price
@@ -83,10 +87,21 @@ class Placement_option():
                             tek_price = tek_price + 280
                             probability = ['да', 'да', 'да', 'нет']
                             answer = random.choice(probability)
+
             print(tek_price)
-            print(answer)
             print('')
 
         for num in numbers:
             lst = dict.values()
             print(lst)
+
+
+
+
+
+
+    # если согласен, то берем номер номера, создаем новый словарь, добавляем туда даты по количеству дней
+    # потом по дате выводим через счетчик считаем номера на заданное число. из общего - занятые
+    #
+
+
