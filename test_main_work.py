@@ -1,4 +1,4 @@
-from test_work import Placement_option
+from new import Placement_option
 
 infile = open('booking.txt', 'r', encoding="utf-8") # здесь можно попробовать через for сделать
 file_contents = infile.readline()
