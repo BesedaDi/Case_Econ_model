@@ -2,7 +2,9 @@ import random
 numbers = []
 individual_number = []
 dict = {}
-a = []
+booked_numbers = []
+door = {}
+
 with open('found.txt', 'r', encoding="utf-8") as found:
         for line in found:
             number, type, people_number, comfort = map(str, line.split())
@@ -31,6 +33,8 @@ with open('found.txt', 'r', encoding="utf-8") as found:
             numbers.append(dict)
             individual_number = []
             dict = {}
+
+
         booking = open('booking.txt', 'r', encoding="utf-8")
 
 
@@ -42,50 +46,89 @@ with open('found.txt', 'r', encoding="utf-8") as found:
 
             for num in numbers:
 
+
                 for k, v in num.items():
                     type = v[0]
                     people_number = v[1]
                     comfort = v[2]
                     price = v[3]
 
-                    if int(people_number) == int(num_pers) and price <= int(sum_max):
+
+
+                    if int(people_number) == int(num_pers) and price <= int(sum_max) and 2300 < int(sum_max):
+
                         if tek_price < price:
                             tek_price = price
                             name = type + ' ' + comfort
-
-                        if tek_price + 1000 <= int(sum_max):
-                            tek_price = tek_price + 1000
-                            food = 'полупонсион'
-
-                        elif tek_price + 280 <= int(sum_max):
-                            tek_price = tek_price + 280
-                            food = 'завтрак'
-
-                        else:
-                            tek_price = tek_price
-                            food = 'без питания'
-
+                            if tek_price + 1000 <= int(sum_max):
+                                tek_price = tek_price + 1000
+                                tek_tek_price = tek_price * int(num_pers)
+                                food = 'полупонсион'
+                            elif tek_price + 280 <= int(sum_max):
+                                tek_price = tek_price + 280
+                                tek_tek_price = tek_price * int(num_pers)
+                                food = 'завтрак'
+                            else:
+                                tek_price = tek_price
+                                tek_tek_price = tek_price * int(num_pers)
+                                food = 'без питания'
                         probability = ['да', 'да', 'да', 'нет']
                         answer = random.choice(probability)
-                    elif int(people_number) < int(num_pers) and price <= int(sum_max):
+                        dates = []
+                        if answer == 'да':
+
+                            for num in numbers:
+                                for k, v in num.items():
+                                    space = name.find(' ')
+                                    type = name[:space]
+                                    comfort = name[space + 1:]
+                                    if type in v and comfort in v and tek_price <= price:
+                                        for numm in range(int(num_days) - 1):
+                                            date = str(int(arr_date[:2]) + numm) + arr_date[2:]
+                                            dates.append(date)
+
+                    elif int(people_number) > int(num_pers) and price <= int(sum_max) and 2300 < int(sum_max):
                         if tek_price < price:
-                            tek_price = price * 70 / 100
+                            tek_price = (price * 70 / 100)
                             name = type + ' ' + comfort
-                            print(name)
-                        if tek_price + 1000 <= int(sum_max):
-                            tek_price = tek_price + 1000
-                            food = 'полупонсион'
-                        elif tek_price + 280 <= int(sum_max):
-                            tek_price = tek_price + 280
-                            food = 'завтрак'
-                        else:
-                            tek_price = tek_price
-                            food = 'без питания'
+                            if tek_price + 1000 <= int(sum_max):
+                                tek_price = tek_price + 1000
+                                tek_tek_price = tek_price * int(num_pers)
+                                food = 'полупонсион'
+                            elif tek_price + 280 <= int(sum_max):
+                                tek_price = tek_price + 280
+                                tek_tek_price = tek_price * int(num_pers)
+                                food = 'завтрак'
+                            else:
+                                tek_price = tek_price
+                                food = 'без питания'
+
                         probability = ['да', 'да', 'да', 'нет']
                         answer = random.choice(probability)
+                    if answer == 'да':
+
+                        for num in numbers:
+                            for k, v in num.items():
+                                space = name.find(' ')
+                                type = name[:space]
+                                comfort = name[space + 1:]
+                                if type in v and comfort in v and tek_price <= price:
+                                    for numm in range(int(num_days) - 1):
+                                        date = str(int(arr_date[:2]) + numm) + arr_date[2:]
+                                        dates.append(date)
+
             print(answer)
 
             print(name)
             print(food)
             print(tek_price)
+            print(num_pers)
+            print(tek_tek_price)
+            print('')
+            stroka = 'Ответ на предложение: ' + answer + ';' + ' ' + 'Номер: ' + name + ';' + ' ' + \
+                  'Тип питания: ' + food + ';' + ' ' + 'Цена на одного: ' + \
+                     str(tek_price) + ', за всех ' + str(tek_tek_price)
+            print(stroka)
+            print('')
+            print(dates)
             print('')
